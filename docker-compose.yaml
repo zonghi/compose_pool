@@ -1,22 +1,22 @@
 version: '3'
 services:
-  ip_proxy_pool:
-    image: zonghi/ip-proxy-pool:latest
-    container_name: IPProxyPool     
-    ports:
-      - 8000:8000
-    volumes:
-      - ./Dockerfiles/IPProxyPool/config.py:/IPProxyPool/config.py
-      - ./wait-for-it.sh:/wait-for-it.sh
-    entrypoint: "/wait-for-it.sh -t 0 mysql:3306 -- "
-    command: python3 IPProxy.py
+  # ip_proxy_pool:
+  #   image: zonghi/ip-proxy-pool:latest
+  #   container_name: IPProxyPool     
+  #   ports:
+  #     - 8000:8000
+  #   volumes:
+  #     - ./Dockerfiles/IPProxyPool/config.py:/IPProxyPool/config.py
+  #     - ./wait-for-it.sh:/wait-for-it.sh
+  #   entrypoint: "/wait-for-it.sh -t 0 mysql:3306 -- "
+  #   command: python3 IPProxy.py
 
   mysql:
     restart: always
     image: mysql:latest
     container_name: mysql
-    volumes:
-      - ./Dockerfiles/mysql/my.cnf:/etc/mysql/my.cnf
+    # volumes:
+    #   - ./Dockerfiles/mysql/my.cnf:/etc/mysql/my.cnf
     environment:
       - "MYSQL_ROOT_PASSWORD=root"
       - "MYSQL_DATABASE=proxy"
@@ -38,8 +38,10 @@ services:
   proxypool:
     image: zonghi/proxypool:latest
     command: ./proxypool
-    # volumes:
-    #   - ./Dockerfiles/go_ip_pool/conf:/conf
+    volumes:
+      - ./Dockerfiles/proxypool/conf/app.ini:/proxypool/conf/app.ini
+      - ./wait-for-it.sh:/wait-for-it.sh
+    entrypoint: "/wait-for-it.sh -t 0 mysql:3306 -- "
     ports:
       - 8080:8080
   proxy_pool:
