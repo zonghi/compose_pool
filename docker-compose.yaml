@@ -37,7 +37,7 @@ services:
       - 8090:8090
   proxypool:
     image: zonghi/proxypool:latest
-    command: ./ProxyPool
+    command: ./proxypool
     # volumes:
     #   - ./Dockerfiles/go_ip_pool/conf:/conf
     ports:
