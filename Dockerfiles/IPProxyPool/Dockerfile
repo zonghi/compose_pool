@@ -8,7 +8,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 SHELL ["/bin/bash", "-c"]
 RUN apt-get update
 RUN apt-get install -y python3 python3-pip python3-dev curl unzip wget vim python3-pyqt5 git fonts-wqy-zenhei tzdata
-RUN pip3 install requests chardet web.py sqlalchemy gevent psutil lxml pymysql
+RUN pip3 install requests chardet web.py sqlalchemy gevent psutil lxml pymysql cryptography
 
 RUN cd / && git clone https://github.com/qiyeboy/IPProxyPool.git 
 
