@@ -35,6 +35,13 @@ services:
       - ./Dockerfiles/go_ip_pool/conf:/conf
     ports:
       - 8090:8090
+  proxypool:
+    image: zonghi/proxypool:latest
+    command: ./ProxyPool
+    # volumes:
+    #   - ./Dockerfiles/go_ip_pool/conf:/conf
+    ports:
+      - 8080:8080
   proxy_pool:
     image: jhao104/proxy_pool:latest
     container_name: proxy_pool
