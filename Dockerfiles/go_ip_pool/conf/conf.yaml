@@ -1,0 +1,51 @@
+dao: redis #set storage type -> redis|database
+redis: #redis config
+  MaxIdle: 0
+  MaxActive: 10
+  Network: tcp
+  Address: redis:6379
+  Password:
+database: #database config
+  Dialect: mysql
+  Args: python:123456@(127.0.0.1:3306)/py?charset=utf8&loc=Local
+  MaxIdle: 5 #max idle connections count
+  MaxOpen: 20 #max connections count
+api:
+  host: 0.0.0.0
+  port: 8090
+  token:  #调用api的token，不用较验可不配置
+poolSize: 1000
+localIpDataPath: /tmp/local_ip_data.dat
+recheckCount: 10 #recheck count if ip is invalid
+maxPing: 5000 #max timeout duration, Millisecond
+updateIpInfo: true #是否自动获取ip归属地等信息
+log:
+  logLevel: 4 #0:Panic 1: Fatal 2:error 3:warning 4:info 5:debug 6:trace
+  errorLogFile: errors.log
+tunnel:
+  tunnelLevel: 1
+  refresh: 20
+  debug: false
+  strategy: round
+  maxFails: 100
+  failTimeout: 10
+tunnels:
+  -
+    proto: http
+    host: 0.0.0.0
+    port: 8888
+    users:
+      -
+        username: root
+        password: 123
+        limiter: 1,10,2
+getters:
+  -
+    method: GET
+    regexp: (\d+\.\d+\.\d+\.\d+):(\d+)
+    proto: http #获取到的代理类型
+    proxy: false #是否通过代理获取
+    agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36
+    urls:
+      -
+        https://www.zdaye.com/dayProxy/1.html
