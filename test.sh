@@ -6,3 +6,6 @@ curl  http://127.0.0.1:5010/get/
 
 echo "==================[test go-ip-pool]============="
 curl  http://127.0.0.1:8090/all?duration=1
+
+echo "==================[test proxypool]============="
+curl  http://localhost:8080/v2/ip

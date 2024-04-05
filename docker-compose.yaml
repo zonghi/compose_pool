@@ -11,6 +11,17 @@ services:
   #   entrypoint: "/wait-for-it.sh -t 0 mysql:3306 -- "
   #   command: python3 IPProxy.py
 
+  compose_pool:
+    image: zonghi/ip-proxy-pool:latest
+    container_name: compose_pool     
+    ports:
+      - 8123:8123
+    volumes:
+      - ./Dockerfiles/compose_pool/IPProxyPool:/compose_pool
+      # - ./wait-for-it.sh:/wait-for-it.sh
+    # entrypoint: "/wait-for-it.sh -t 0 mysql:3306 -- "
+    command: python3 IPProxy.py
+
   mysql:
     restart: always
     image: mysql:latest
@@ -53,3 +64,7 @@ services:
       - redis
     environment:
       DB_CONN: "redis://@redis:6379/0"
+  # qt_stable_filter_server:
+  #   image: zonghi/hikyuu:latest
+  #   container_name: hikyuu
+  #   command: bash /root/code/docker/hikyuu/cron/loop.sh
